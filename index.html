@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Advisor</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="main-title">🔍 AI Career Advisor</h1>
+
+    <form method="POST" class="input-form">
+        <label>🎓 Education Level:</label>
+        <select name="education" required>
+            <option value="High School">High School</option>
+            <option value="Bachelor">Bachelor</option>
+            <option value="Master">Master</option>
+            <option value="PhD">PhD</option>
+        </select>
+
+        <label>📚 Interests:</label>
+        <select name="interests" multiple required>
+            <option value="Math">Math</option>
+            <option value="Design">Design</option>
+            <option value="Biology">Biology</option>
+            <option value="Programming">Programming</option>
+            <option value="Law">Law</option>
+        </select>
+
+        <label>🛠️ Skills:</label>
+        <select name="skills" multiple required>
+            <option value="Python">Python</option>
+            <option value="Creativity">Creativity</option>
+            <option value="Communication">Communication</option>
+            <option value="Problem Solving">Problem Solving</option>
+            <option value="Data Analysis">Data Analysis</option>
+        </select>
+
+        <label>🏢 Work Preference:</label>
+        <select name="preference" required>
+            <option value="Remote">Remote</option>
+            <option value="Office">Office</option>
+            <option value="Flexible">Flexible</option>
+        </select>
+
+        <label>🧠 Personality Type:</label>
+        <select name="personality" required>
+            <option value="Analytical">Analytical</option>
+            <option value="Creative">Creative</option>
+            <option value="Practical">Practical</option>
+            <option value="Empathetic">Empathetic</option>
+        </select>
+
+        <button type="submit">Run All Algorithms</button>
+    </form>
+
+    {% if predictions %}
+        <div class="result-box">
+            <h2>🎯 Career Predictions:</h2>
+            <ul>
+                {% for algo, pred in predictions.items() %}
+                    <li><strong>{{ algo }}:</strong> {{ pred }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="result-box">
+            <h2>📈 Accuracy Scores:</h2>
+            <ul>
+                {% for algo, acc in accuracies.items() %}
+                    <li><strong>{{ algo }}:</strong> {{ acc }}%</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="result-box">
+    <h2>🧩 Clustering (KMeans):</h2>
+    <div class="card-grid">
+        {% for label in clusters %}
+        <div class="card-item">
+            <strong>Sample {{ loop.index }}:</strong> Cluster {{ label }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+        <div class="result-box">
+            <h2>📊 PCA Result:</h2>
+            <div class="card-grid">
+                {% for row in pca_result %}
+                    <div class="card-item">[{{ row[0]|round(2) }}, {{ row[1]|round(2) }}]</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="result-box">
+            <h2>🔗 Association Rules (FP-Growth):</h2>
+            <div class="card-grid">
+                {% for rule in fpg_result %}
+                    <div class="card-item">
+                        <strong>Items:</strong> {{ rule['itemsets'] }}<br>
+                        <strong>Support:</strong> {{ rule['support'] }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="result-box">
+            <h2>🖼️ Computer Vision Analysis:</h2>
+            <div class="card-item">
+                {{ cv_result }}
+            </div>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
